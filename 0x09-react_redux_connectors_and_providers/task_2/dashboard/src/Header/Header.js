@@ -1,49 +1,57 @@
-import React, { useContext } from "react";
-import logo from "../assets/holberton-logo.jpg";
-import { StyleSheet, css } from "aphrodite";
-import { AppContext } from "../App/AppContext";
+import React, { Component } from 'react';
+import { StyleSheet, css } from 'aphrodite';
+import { connect } from 'react-redux';
+import { AppContext } from '../App/AppContext';
+import { logout } from '../actions/uiActionCreators';
+import Logo from '../assets/holberton-logo.jpg';
 
-function Header() {
-  const { user, logOut } = useContext(AppContext);
+class Header extends Component {
+  static contextType = AppContext;
 
-  return (
-    <>
-      <div className={css(styles["App-header"])}>
-        <img src={logo} className={css(styles.img)} alt="logo" />
+  render() {
+    const { user, logOut } = this.context;
+    return (
+      <div className={css(styles['App-header'])}>
+        <img src={Logo} className={css(styles['App-logo'])} alt='logo' />
         <h1>School dashboard</h1>
-      </div>
-
-      {user.isLoggedIn && (
-        <section className={css(styles.greeting)} id="logoutSection">
-          Welcome<strong> {user.email} </strong>
-          <em>
-            <a href="#" onClick={logOut}>
-              (logout)
+        {user?.isLoggedIn && (
+          <section id='logoutSection'>
+            Welcome {user.email} (
+            <a href='#' onClick={logOut}>
+              logout
             </a>
-          </em>
-        </section>
-      )}
-    </>
-  );
+            )
+          </section>
+        )}
+      </div>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  "App-header": {
-    fontSize: "1.4rem",
-    color: "#e0354b",
-    display: "flex",
-    alignItems: "center",
-    borderBottom: "3px solid #e0354b",
+  'App-header': {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '1.25rem',
+    color: '#e0364b',
+    padding: '1.2rem 0 0.3rem 0',
+    borderBottom: '4px solid #e0364b',
   },
 
-  img: {
-    width: "200px",
-    height: "200px",
-  },
-
-  greeting: {
-    marginTop: "1rem",
+  'App-logo': {
+    width: '200px',
+    height: '200px',
   },
 });
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.get('user'),
+  };
+};
+
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
