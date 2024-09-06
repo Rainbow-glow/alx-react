@@ -14,6 +14,8 @@ import { AppContext, defaultUser } from './AppContext';
 import {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  loginRequest,
+  logout,
 } from '../actions/uiActionCreators';
 
 class App extends Component {
@@ -154,6 +156,8 @@ export const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  login: loginRequest,
+  logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
