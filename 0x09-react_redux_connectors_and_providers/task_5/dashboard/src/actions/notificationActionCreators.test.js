@@ -1,16 +1,61 @@
-import { NotificationTypeFilters, MARK_AS_READ, SET_TYPE_FILTER } from "./notificationActionTypes";
+import {
+  MARK_AS_READ,
+  SET_TYPE_FILTER,
+  SET_LOADING_STATE,
+  FETCH_NOTIFICATIONS_SUCCESS,
+  NotificationTypeFilters,
+} from './notificationActionTypes';
 
-import { markAsRead, setNotificationFilter } from "./notificationActionCreators";
+import {
+  markAsAread,
+  setNotificationFilter,
+  setLoadingState,
+  setNotifications,
+  fetchNotifications,
+} from './notificationActionCreators';
 
-describe("tests for notification actions", () => {
-  it("should create right action for mark as read", () => {
-    expect(markAsRead(1)).toEqual({ type: MARK_AS_READ, index: 1 });
+describe('action creators tests', function () {
+  it('returns correct action for markAsRead', function () {
+    const expectedReturn = {
+      type: MARK_AS_READ,
+      index: 1,
+    };
+
+    const result = markAsAread(1);
+
+    expect(result).toEqual(expectedReturn);
   });
 
-  it("should create right action for notification filter", () => {
-    expect(setNotificationFilter(NotificationTypeFilters["DEFAULT"])).toEqual({
+  it('returns correct action for setNotificationFilter', function () {
+    const expectedReturn = {
       type: SET_TYPE_FILTER,
-      filter: "DEFAULT",
-    });
+      filter: 'DEFAULT',
+    };
+
+    const result = setNotificationFilter(NotificationTypeFilters.DEFAULT);
+
+    expect(result).toEqual(expectedReturn);
+  });
+  it('returns correct action for setLoadingState', function () {
+    const expectedReturn = {
+      type: SET_LOADING_STATE,
+      loading: true,
+    };
+
+    const result = setLoadingState(true);
+
+    expect(result).toEqual(expectedReturn);
+  });
+  it('returns correct action for setNotifications', function () {
+    const data = { 1: { a: 'Hello' }, 2: { b: 'There' } };
+
+    const expectedReturn = {
+      type: FETCH_NOTIFICATIONS_SUCCESS,
+      data,
+    };
+
+    const result = setNotifications(data);
+
+    expect(result).toEqual(expectedReturn);
   });
 });

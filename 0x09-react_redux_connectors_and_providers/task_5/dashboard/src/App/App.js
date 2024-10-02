@@ -33,7 +33,7 @@ class App extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+    // this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
   listCourses = [
@@ -54,13 +54,13 @@ class App extends Component {
     });
   }
 
-  markNotificationAsRead(id) {
-    this.setState((prevState) => ({
-      listNotifications: prevState.listNotifications.filter(
-        (notif) => notif.id !== id
-      ),
-    }));
-  }
+  // markNotificationAsRead(id) {
+  //   this.setState((prevState) => ({
+  //     listNotifications: prevState.listNotifications.filter(
+  //       (notif) => notif.id !== id
+  //     ),
+  //   }));
+  // }
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -89,7 +89,7 @@ class App extends Component {
               displayDrawer={displayDrawer}
               handleDisplayDrawer={this.handleDisplayDrawer}
               handleHideDrawer={this.handleHideDrawer}
-              markNotificationAsRead={this.markNotificationAsRead}
+              // markNotificationAsRead={this.markNotificationAsRead}
             />
             <Header />
           </div>
@@ -148,8 +148,8 @@ App.propTypes = {};
 
 export const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible'),
+    isLoggedIn: state.ui.get('isUserLoggedIn'),
+    displayDrawer: state.ui.get('isNotificationDrawerVisible'),
   };
 };
 
